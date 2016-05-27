@@ -21,4 +21,12 @@ Firebase Tutorial Code for Version 3.0
 
 # Firebase Setup
 
+* Create New Project on Firebase
+* Add config and initializeApp in app.js
+* Add script link in index.html
+* From Terminal:
+ * firebase login
+ * firebase init
+ * firebase deploy
+
 
