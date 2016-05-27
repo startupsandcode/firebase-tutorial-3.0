@@ -16,4 +16,9 @@ Firebase Tutorial Code for Version 3.0
 * run npm init
 * npm install --save-dev gulp gulp-less gulp-connect gulp-open
 * create gulpfile.js
-* 
+* git add .
+* git commit -m "Initial Commit for Build"
+
+# Firebase Setup
+
+
