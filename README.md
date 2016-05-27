@@ -1,11 +1,11 @@
-# firebase-tutorial-3.0
+# Firebase Tutorial 3.0
 Firebase Tutorial Code for Version 3.0
 
 * Create a new repo in GitHub
 * Clone repository on your local machine
 * Add .gitignore
- * /node_modules/**/*
- * /dist/**/*
+ * /node_modules/\*\*/\*
+ * /dist/\*\*/\*
  * *.log
 * Create src directory
 * Create src/less
@@ -22,11 +22,89 @@ Firebase Tutorial Code for Version 3.0
 # Firebase Setup
 
 * Create New Project on Firebase
+![](DocImages/01-createProject.png)
+![](DocImages/02-enterProjectName.png)
+![](DocImages/03-dashboard.png)
 * Add config and initializeApp in app.js
+![](DocImages/04-projectConfig.png)
+
+```javascript
+// Initialize Firebase
+var config = {
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    storageBucket: "",
+};
+firebase.initializeApp(config);
+```
+
 * Add script link in index.html
+```html
+<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+```
+
 * From Terminal:
  * firebase login
  * firebase init
  * firebase deploy
 
+# Adding Google Auth
 
+* Login to firebase console
+* Click on Auth on the left
+* Click on Sign-in Method
+![](DocImages/05-authLanding.png)
+* Click on Google
+![](DocImages/06-authSetup.png)
+* Click on enable, and save
+![](DocImages/07-enableAuth.png)
+
+Yes, it's that easy, it creates all the keys you need on the [https://console.developers.google.com](https://console.developers.google.com)
+
+#Firebase Database Essentials
+
+##Write to your Firebase Database
+```javascript
+//Get A reference to your Database
+var myCollection = firebase.database().ref('MyCollection');
+
+//Push an object to your collection
+myCollection.push({ name: 'alex'});
+```
+
+
+##To Read from a collection
+```javascript
+database.ref('MyCollection').on('value', function (results) {
+var colectionData = results.val();
+// iterate through results coming from database call; messages
+for (var item in collectionData) {
+    //NOTE: item is actually the key, so use that for data-id in your html
+    $list = $('<li></li>')
+    $list.attr('data-id',item);
+    //You'll probably want to put something from your item like:
+    $list.append('<div></div>').html(item.name);
+    $('#results').append($list);
+}
+```
+
+##To Update a collection
+```javascript
+//The id is the key of the item in the collection
+var myCollection = database.ref('/MyCollection/' + id);
+
+// update name property
+myCollection.update({
+    name: 'julio'
+})
+```
+
+##To Delete from a collection
+```javascript
+//The id is the key of the item in the collection
+var myCollection = database.ref('/MyCollection/' + id);
+
+// update name property
+myCollection.remove();
+```
