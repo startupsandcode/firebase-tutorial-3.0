@@ -6,8 +6,8 @@
     <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
 </head>
 <body>
-    <div>Hello World</div>
-    <section class="formSection">
+    <div id="greeting">Please sign-in</div>
+    <section class="formSection" style="display:none">
         <label>Enter Message</label>
         <input type="text" id="message" />
         <button id="sendMessage">Send Message</button>
@@ -15,9 +15,10 @@
     <section class="messages">
     </section>
     <section class="LoginSection">
-        <button id="Login">Login</button>
-        <button id="Logout">Logout</button>
+        <button id="login">Login</button>
+        <button id="logout" style="display:none">Logout</button>
     </section>    
+    <script src="/scripts/keys.js"></script>
     <script src="/scripts/app.js"></script>
 </body>
 </html>
