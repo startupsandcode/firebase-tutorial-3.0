@@ -108,3 +108,42 @@ var myCollection = database.ref('/MyCollection/' + id);
 // update name property
 myCollection.remove();
 ```
+
+##Login
+```javascript
+auth.signInWithPopup(provider).then(function (result) {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        //I would save this token and user in localStorage so you can check it in the future
+        var token = result.credential.accessToken;
+        // The signed-in user info.
+        var user = result.user;
+        console.log(user.displayName);
+    }).catch(function (error) {
+        console.log(error);
+})
+```
+
+##Logout
+```javascript
+auth.signOut().then(function () {
+    console.log('logged out');
+}, function (error) {
+    // An error happened.
+    console.log(error);
+});
+```
+##Check if logged in
+```javascript
+//I would check a localStorage token if exists first, but here is there AuthStateChange function
+auth.onAuthStateChanged(function (user) {
+    if (user) {
+        // User is signed in.
+        self.currentUser = user;
+        self.username = self.currentUser.displayName;
+        return true;
+    } else {
+        // No user is signed in.
+        self.currentUser = user;
+        return false;
+    }
+});
