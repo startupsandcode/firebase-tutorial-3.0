@@ -138,12 +138,11 @@ auth.signOut().then(function () {
 auth.onAuthStateChanged(function (user) {
     if (user) {
         // User is signed in.
-        self.currentUser = user;
-        self.username = self.currentUser.displayName;
+        // Save current user variable, state, I use a user object
+        currentUser = user;
         return true;
     } else {
         // No user is signed in.
-        self.currentUser = user;
         return false;
     }
 });
