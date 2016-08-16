@@ -64,6 +64,9 @@ Yes, it's that easy, it creates all the keys you need on the [https://console.de
 
 #Firebase Database Essentials
 
+A note on this, the default rules for the database will require authentication, please see the authentcation section below to enable authentication.
+You can also turn off authentication being required in your database rules, but I would NOT suggest that.
+
 ##Write to your Firebase Database
 ```javascript
 //Get A reference to your Database
@@ -75,18 +78,33 @@ myCollection.push({ name: 'alex'});
 
 
 ##To Read from a collection
+
+There are a couple ways to read from a collection.
+
+1) To setup an event to listen to value changes on a collection value (be as specific as possible, listening to root is not good)
 ```javascript
-database.ref('MyCollection').on('value', function (results) {
-var colectionData = results.val();
-// iterate through results coming from database call; messages
-for (var item in collectionData) {
-    //NOTE: item is actually the key, so use that for data-id in your html
-    $list = $('<li></li>')
-    $list.attr('data-id',item);
-    //You'll probably want to put something from your item like:
-    $list.append('<div></div>').html(item.name);
-    $('#results').append($list);
-}
+    var myCollection = firebase.database().ref('MyCollection');
+    myCollection.on('value', function (results) {
+    var colectionData = results.val();
+    // iterate through results coming from database call; messages
+    for (var item in collectionData) {
+        //NOTE: item is actually the key, so use that for data-id in your html
+        $list = $('<li></li>')
+        $list.attr('data-id',item);
+        //You'll probably want to put something from your item like:
+        $list.append('<div></div>').html(item.name);
+        $('#results').append($list);
+    });
+```
+
+2) To get a snapshot value, you would want to do this: 
+```javascript
+    var myCollection = firebase.database().ref('MyCollection');
+    var userData = myCollection.once('value').then(function (snapshot) {
+        if (snapshot.val()) {
+            FirstName = snapshot.val().name;
+        }
+    });
 ```
 
 ##To Update a collection
@@ -109,7 +127,16 @@ var myCollection = database.ref('/MyCollection/' + id);
 myCollection.remove();
 ```
 
+#Authentication Essentials 
+
+##General References
+```javascript
+var provider = new firebase.auth.GoogleAuthProvider();
+var auth = firebase.auth();
+```
+
 ##Login
+
 ```javascript
 auth.signInWithPopup(provider).then(function (result) {
         // This gives you a Google Access Token. You can use it to access the Google API.

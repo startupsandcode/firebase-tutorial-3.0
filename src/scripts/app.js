@@ -1,3 +1,6 @@
+// Initialize Firebase
+//This happens in keys.js
+
 document.addEventListener("DOMContentLoaded", function (event) {
     console.log('document loaded');
     if (ltmApp.isLoggedIn()) {
