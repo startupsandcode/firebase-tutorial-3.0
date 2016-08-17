@@ -73,7 +73,7 @@ You can also turn off authentication being required in your database rules, but 
 var myCollection = firebase.database().ref('MyCollection');
 
 //Push an object to your collection
-myCollection.push({ name: 'alex'});
+myCollection.set({ name: 'alex'});
 ```
 
 
